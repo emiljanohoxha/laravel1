@@ -21,12 +21,16 @@
           </div>
           <div class="form-group mt-2">
             <label for="extra">Extra</label>
-            <input type="text" class="form-control" id="extra" placeholder="Extras Json Format" name="extra">
+            <input type="text" class="form-control" id="extra" placeholder="Extras Json Format" name="extra" value="{{old('extra')}}">
             @error('extra')
                         <span class="invalid-feedback d-block" role="alert">
                             {{$message}}
                         </span>
                         @enderror
+
+                        @if(Session::has('errorMessage'))
+                        <div class="alert alert-danger"> {{ Session::get('errorMessage') }}</div>
+                      @endif
           </div>
           <button type="submit" class="btn btn-primary mt-3">Save</button>
 

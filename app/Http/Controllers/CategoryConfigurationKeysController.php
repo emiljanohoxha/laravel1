@@ -9,6 +9,7 @@ use App\Models\CategoryConfigurations;
 use Illuminate\Http\Request;
 
 
+
 class CategoryConfigurationKeysController extends Controller
 {
     /**
@@ -48,17 +49,21 @@ class CategoryConfigurationKeysController extends Controller
     public function store(StoreCategoryConfigurationKeysRequest $request)
     {
         // dd($request->all());
+        if (!CategoryConfigurationKeys::where('name','=', $request->name)->first()) {
 
-        CategoryConfigurationKeys::create([
+            CategoryConfigurationKeys::create([
 
-            'name'  => $request->name,
-            'extra' => $request->extra,
-
-
-
-        ]);
+                'name'  => $request->name,
+                'extra' => $request->extra,
+            ]);
+            // exists
 
         return redirect()->route('category.category');
+
+        }else {
+            return redirect()->route('category.create')->with('errorMessageDuration',"name already exists");
+        }
+
     }
 
     /**
@@ -101,13 +106,6 @@ class CategoryConfigurationKeysController extends Controller
 
         $category = CategoryConfigurationKeys::findOrFail($request->id);
 
-
-        // $category = request() ->validate([
-        //     'extra' => 'required'
-        // ]);
-
-
-
         $category->extra = $request->extra;
         // dd($request->extra);
 
@@ -131,7 +129,8 @@ class CategoryConfigurationKeysController extends Controller
             return redirect()->route('category.category');
 
         } catch (\Illuminate\Database\QueryException $poss) {
-            return 'You cannot delete this record because is related with onether table';
+            return redirect()->route('category.edit')->with('errorMessageDuration',"You cannot delete this record because is related with onether table");
         }
     }
 }
+

@@ -24,6 +24,9 @@
     </tr>
   </thead>
   <tbody>
+    @if(Session::has('errorMessage'))
+    <div class="alert alert-danger"> {{ Session::get('errorMessage') }}</div>
+  @endif
                         @foreach ($category as $cat)
                             <tr>
                                 <td>{{ $cat->id }}</td>

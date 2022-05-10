@@ -28,8 +28,8 @@
                         </span>
                         @enderror
 
-                        @if(Session::has('errorMessage'))
-                        <div class="alert alert-danger"> {{ Session::get('errorMessage') }}</div>
+                        @if(Session::has('errorMessageDuration'))
+                        <div class="alert alert-danger"> {{ Session::get('errorMessageDuration') }}</div>
                       @endif
           </div>
           <button type="submit" class="btn btn-primary mt-3">Save</button>

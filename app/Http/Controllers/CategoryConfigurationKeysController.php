@@ -17,7 +17,7 @@ class CategoryConfigurationKeysController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CategoryConfigurationKeys $cat, Request $request)
+    public function index( Request $request,CategoryConfigurationKeys $cat)
     {
         $name = $request->input('name');
 
@@ -121,15 +121,18 @@ class CategoryConfigurationKeysController extends Controller
      * @param  \App\Models\CategoryConfigurationKeys  $categoryConfigurationKeys
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoryConfigurationKeys $categoryConfigurationKeys, $id)
+    public function destroy(CategoryConfigurationKeys $categoryConfigurationKeys, $id,)
     {
-        try {
-            $post = $categoryConfigurationKeys::find($id);
+        $post = $categoryConfigurationKeys::find($id);
+
+        $exists = CategoryConfigurations::where('key', '=',$post->name)->first();
+        if(!$exists)
+        {
             $post->delete();
             return redirect()->route('category.category');
 
-        } catch (\Illuminate\Database\QueryException $poss) {
-            return redirect()->route('category.edit')->with('errorMessageDuration',"You cannot delete this record because is related with onether table");
+        } else  {
+            return redirect()->route('category.category')->with('errorMessage',"You cannot delete this record because is related with onether table");
         }
     }
 }

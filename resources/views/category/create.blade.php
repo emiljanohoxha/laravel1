@@ -2,9 +2,10 @@
 
 @section('content')
 
-<h1>Configuration Key Creation</h1>
 
 <div class="container">
+<h1 class="ml-3">Configuration Key Creation</h1>
+
     <div class="row mt-4">
         <h3>CREATE CATEGORY CONFIGURATION KEY</h3>
     </div>
@@ -32,7 +33,7 @@
                         <div class="alert alert-danger"> {{ Session::get('errorMessageDuration') }}</div>
                       @endif
           </div>
-          <button type="submit" class="btn btn-primary mt-3">Save</button>
+          <button type="submit" class="btn btn-info mt-3">Save</button>
 
 
     </form>

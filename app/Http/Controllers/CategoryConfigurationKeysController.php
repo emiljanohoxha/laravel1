@@ -26,7 +26,6 @@ class CategoryConfigurationKeysController extends Controller
             $query->where('name', 'like', '%' . $name . '%');
         }
 
-
         return view('category.category', ['category' => $query->paginate(10)]);
     }
 
@@ -121,7 +120,7 @@ class CategoryConfigurationKeysController extends Controller
      * @param  \App\Models\CategoryConfigurationKeys  $categoryConfigurationKeys
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoryConfigurationKeys $categoryConfigurationKeys, $id,)
+    public function destroy(CategoryConfigurationKeys $categoryConfigurationKeys, $id)
     {
         $post = $categoryConfigurationKeys::find($id);
 
@@ -132,7 +131,7 @@ class CategoryConfigurationKeysController extends Controller
             return redirect()->route('category.category');
 
         } else  {
-            return redirect()->route('category.category')->with('errorMessage',"You cannot delete this record because is related with onether table");
+            return redirect()->route('category.category')->with('errorMessage',"You cannot delete this record because is related with another table");
         }
     }
 }

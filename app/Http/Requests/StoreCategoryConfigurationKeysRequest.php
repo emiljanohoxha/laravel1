@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\CategoryConfigurationKeys;
+use App\Models\CategoryConfigurations;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\rule;
 
 class StoreCategoryConfigurationKeysRequest extends FormRequest
 {
@@ -25,8 +28,8 @@ class StoreCategoryConfigurationKeysRequest extends FormRequest
     {
 
       return [
-                'name' => 'required|string',
-                'extra'=> 'required'
+                'name'=>'required|string|unique:category_configuration_keys',
+                'extra'=>'required'
 
         ];
     }

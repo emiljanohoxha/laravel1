@@ -5,15 +5,12 @@ use App\Http\Controllers\CategoryConfigurationKeysController;
 // use App\Http\Middleware\Auth;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [CategoryConfigurationKeysController::class, 'index']);
 Route::get('category', [CategoryConfigurationKeysController::class, 'index'])->name('category.category');
 Route::post('category', [CategoryConfigurationKeysController::class, 'store'])->name('category.store');
 

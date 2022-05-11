@@ -17,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
+    public const CATEGORY = '/category';
+
     /**
      * Bootstrap any application services.
      *

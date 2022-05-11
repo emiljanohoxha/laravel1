@@ -20,12 +20,10 @@ class CategoryConfigurationKeysController extends Controller
     public function index( Request $request,CategoryConfigurationKeys $cat)
     {
         $name = $request->input('name');
-
         $query = $cat->newQuery();
         if ($name) {
             $query->where('name', 'like', '%' . $name . '%');
         }
-
         return view('category.category', ['category' => $query->paginate(10)]);
     }
 
@@ -47,22 +45,13 @@ class CategoryConfigurationKeysController extends Controller
      */
     public function store(StoreCategoryConfigurationKeysRequest $request)
     {
-        // dd($request->all());
-        if (!CategoryConfigurationKeys::where('name','=', $request->name)->first()) {
 
-            CategoryConfigurationKeys::create([
+            $category = CategoryConfigurationKeys::create([
 
                 'name'  => $request->name,
                 'extra' => $request->extra,
             ]);
-            // exists
-
-        return redirect()->route('category.category');
-
-        }else {
-            return redirect()->route('category.create')->with('errorMessageDuration',"name already exists");
-        }
-
+            return redirect()->route('category.category');
     }
 
     /**
@@ -85,10 +74,7 @@ class CategoryConfigurationKeysController extends Controller
     public function edit($id)
     {
 
-        // dd($request->all());
-
         $category = CategoryConfigurationKeys::findOrFail($id);
-
         return view('category.edit', ["category" => $category]);
     }
 
@@ -101,15 +87,10 @@ class CategoryConfigurationKeysController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request->id);
 
         $category = CategoryConfigurationKeys::findOrFail($request->id);
-
         $category->extra = $request->extra;
-        // dd($request->extra);
-
         $category->save();
-        // dd($request->all());
 
         return redirect()->route('category.category');
     }
@@ -128,7 +109,7 @@ class CategoryConfigurationKeysController extends Controller
         if(!$exists)
         {
             $post->delete();
-            return redirect()->route('category.category');
+            return redirect()->route('category.category')->with('successMessage',"Deleted Succesfully");
 
         } else  {
             return redirect()->route('category.category')->with('errorMessage',"You cannot delete this record because is related with another table");

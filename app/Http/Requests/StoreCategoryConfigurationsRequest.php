@@ -24,7 +24,8 @@ class StoreCategoryConfigurationsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'key'=>'unique:category_configuration_keys',
+
         ];
     }
 }
